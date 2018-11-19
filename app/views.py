@@ -8,7 +8,7 @@ from app.models import Address, House
 def list(request):
     address = Address.objects.all()
 
-    return render(request, 'app/list.html',{'address':address})
+    return render(request, 'app/app.html',{'address':address})
     #return HttpResponse(address)
 
 def index(request):
