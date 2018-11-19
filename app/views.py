@@ -2,12 +2,14 @@ from django.shortcuts import render
 from django.http import HttpResponse
 from django.utils.datastructures import MultiValueDictKeyError
 
-from app.models import Address
+from app.models import Address, House
 
 
 def list(request):
     address = Address.objects.all()
-    return HttpResponse(address)
+
+    return render(request, 'app/list.html',{'address':address})
+    #return HttpResponse(address)
 
 def index(request):
     address = ''
@@ -24,3 +26,16 @@ def index(request):
     return HttpResponse('{"Hello": "'\
                         + address + '"}')
 
+
+def save(request, id):
+    address = request.POST['address']
+    a = Address.objects.get(id=id)
+    a.address = address
+    a.save()
+
+    return HttpResponse('ok')
+
+
+def edit(request, id):
+    address = Address.objects.get(id=id)
+    return render(request,'app/edit.html',{'address':address})
